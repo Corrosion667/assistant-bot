@@ -3,7 +3,7 @@ install:
 
 full-install:
 	pip3 install --user poetry==1.2.0b1
-	poetry install --no-root
+	make install
 
 lint:
 	poetry run flake8 bots
