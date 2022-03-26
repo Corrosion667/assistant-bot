@@ -6,6 +6,13 @@ authors = ["Artem Nechai <lenikol95@mail.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+python-dotenv = "^0.20.0"
+python-telegram-bot = "^13.11"
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^1.6.0"
+isort = "^5.10.1"
+wemake-python-styleguide = "^0.16.1"
 
 [tool.poetry.dev-dependencies]
 
