@@ -2,7 +2,7 @@ install:
 	poetry install --no-root
 
 full-install:
-	pip3 install --user poetry
+	pip3 install --user poetry==1.2.0b1
 	poetry install --no-root
 
 lint:
