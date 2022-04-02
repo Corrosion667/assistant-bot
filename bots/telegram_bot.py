@@ -36,7 +36,6 @@ def send_answer(update: Update, context: CallbackContext):
         project_id=project_id,
         session_id=chat_id,
         text=update.message.text,
-        language_code='en',
     )
     update.message.reply_text(reply_message)
 
