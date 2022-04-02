@@ -1,0 +1,82 @@
+{
+    "Apply for a job": {
+        "questions": [
+            "How to apply for job?",
+            "How to get hired?",
+            "How to work for you?",
+            "I want to work for you",
+            "Is it possible to get a job with you?",
+            "Can I work for you?",
+            "I want to work as an editor"
+        ],
+        "answers": [
+            "If you want to get a job, please contact us via good-job@gmail.com with a mini-essay about yourself and attach your portfolio."
+        ]
+    },
+    "Forgot password": {
+        "questions": [
+            "I do not remember the password",
+            "I can't sign in",
+            "Login issues",
+            "Forgot password",
+            "Forgot login",
+            "Recover password",
+            "How to recover your password",
+            "Incorrect login or password",
+            "Login failed",
+            "I can't log into my account"
+        ],
+        "answers": [
+            "If you can't log in, use the 'Forgot your password?' under the login form. You will receive an email with further instructions. Check the Spam folder, sometimes letters end up in it."
+        ]
+    },
+    "Delete account": {
+        "questions": [
+            "I want to delete my account",
+            "Delete account",
+            "How to delete account",
+            "How do I delete my data",
+            "Delete my articles",
+            "How to delete account",
+            "Account deletion"
+        ],
+        "answers": [
+            "If you want to delete your account, you can do it in Settings of your profile. Scroll the section to the area highlighted in red."
+        ]
+    },
+    "Questions from banned users": {
+        "questions": [
+            "I got banned",
+            "I have been banned",
+            "Unban",
+            "Remove ban",
+            "Unban my friend",
+            "Unban me",
+            "Why am I banned",
+            "Why I got banned",
+            "Is it possible to unban for money?",
+            "Is it possible to pay for unban?",
+            "I want to pay for unban",
+            "My friend didn't do anything but got banned"
+        ],
+        "answers": [
+            "If you are banned, you have violated the rules of our community. When you enter the site, you can see evidence of your violations and a link to the violated rule. Unban is not for sale. If you have read the rules and evidence of your guilt and you still have complaints, use the form 'Not Guilty' under the ban message."
+        ]
+    },
+    "Questions from conterpaties": {
+        "questions": [
+            "Where is the meeting?",
+            "When will you transfer money",
+            "When will I get paid?",
+            "When will you pay?",
+            "I will transfer money soon",
+            "We are late for a meeting",
+            "Sending meeting results",
+            "When will we sign a contract?",
+            "Is the contract already valid?"
+        ],
+        "answers": [
+            "Sorry, this chat is from SMM department is in, we do not know the answer to this question. Please contact directly the person you are working with."
+        ]
+    }
+}
