@@ -8,7 +8,7 @@ RUSSIAN_LANGUAGE_CODE = 'ru'
 ENGLISH_LANGUAGE_CODE = 'en'
 
 
-def get_intent_answer(project_id, session_id, text) -> str:
+def get_intent_answer(project_id: str, session_id: str, text: str) -> str:
     """Get answer from DialogFlow agent for the provided text.
 
     Args:
@@ -30,14 +30,14 @@ def get_intent_answer(project_id, session_id, text) -> str:
     return response.query_result.fulfillment_text
 
 
-def detect_language(text):
+def detect_language(text: str) -> str:
     """Consider user's language message as russian if it has cyrillic symbols else as english.
 
     Args:
         text: message received from user.
 
     Returns:
-        Language code: russian or english.
+        Language code which is russian or english.
     """
     if bool(re.search('[\u0400-\u04FF]', text)):
         return RUSSIAN_LANGUAGE_CODE
