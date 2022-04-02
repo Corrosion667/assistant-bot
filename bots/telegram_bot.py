@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
+from bots.dialogflow import get_intent_answer
+
 logger = logging.getLogger(__name__)
 
 
@@ -21,14 +23,22 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text(f'Hello, {user.first_name}!')
 
 
-def echo(update: Update, context: CallbackContext):
-    """Send to the user his own message that he sent to the bot.
+def send_answer(update: Update, context: CallbackContext):
+    """Send answer to user using replies from Dialog Flow API.
 
     Args:
         update: incoming update object.
         context: indicates that this is a callback function.
     """
-    update.message.reply_text(update.message.text)
+    project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
+    chat_id = update.message.chat_id
+    reply_message = get_intent_answer(
+        project_id=project_id,
+        session_id=chat_id,
+        text=update.message.text,
+        language_code='en',
+    )
+    update.message.reply_text(reply_message)
 
 
 def main():
@@ -43,7 +53,7 @@ def main():
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('start', start))
     dispatcher.add_handler(MessageHandler(
-        Filters.text & ~Filters.command, echo,
+        Filters.text & ~Filters.command, send_answer,
     ))
     updater.start_polling()
     updater.idle()

@@ -12,13 +12,14 @@ def get_intent_answer(project_id, session_id, text, language_code) -> str:
         text: message received from user.
         language_code: the language of the conversational query.
 
-    Returns: text response for user.
+    Returns:
+        Text response for user.
     """
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     text_input = dialogflow.TextInput(text=text, language_code=language_code)
     query_input = dialogflow.QueryInput(text=text_input)
     response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input},
+        request={'session': session, 'query_input': query_input},
     )
-    return response.text
+    return response.query_result.fulfillment_text
