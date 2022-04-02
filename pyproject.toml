@@ -8,6 +8,7 @@ authors = ["Artem Nechai <lenikol95@mail.ru>"]
 python = "^3.9"
 python-dotenv = "^0.20.0"
 python-telegram-bot = "^13.11"
+google-cloud-dialogflow = "^2.13.0"
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^1.6.0"
