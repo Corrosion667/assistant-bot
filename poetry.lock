@@ -777,6 +777,21 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
+name = "vk-api"
+version = "11.9.7"
+description = "Python модуль для создания скриптов для социальной сети Вконтакте (vk.com API wrapper)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = "*"
+
+[package.extras]
+vkaudio = ["beautifulsoup4"]
+vkstreaming = ["websocket-client"]
+
+[[package]]
 name = "wemake-python-styleguide"
 version = "0.16.1"
 description = "The strictest and most opinionated python linter ever"
@@ -808,7 +823,7 @@ typing_extensions = ">=3.6,<5.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "dea2f114b899b5ff2a0e840b3ed98a4be8adb99894b358015e585994d0370e37"
+content-hash = "8eff3d2234c9993a0e93c5ab0094743046a456c4ce0fd6de5681127f83d121c4"
 
 [metadata.files]
 apscheduler = [
@@ -1241,6 +1256,10 @@ tzlocal = [
 urllib3 = [
     {file = "urllib3-1.26.9-py2.py3-none-any.whl", hash = "sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14"},
     {file = "urllib3-1.26.9.tar.gz", hash = "sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"},
+]
+vk-api = [
+    {file = "vk_api-11.9.7-py3-none-any.whl", hash = "sha256:68f4bf836780669790c1a5b4e1c02523d981f1274bfd17bf648a6997122a579c"},
+    {file = "vk_api-11.9.7.tar.gz", hash = "sha256:e88f69f4df4378995a43d00283c8c80a7d4c2f36aecacae1ff1e9fe4562f9e0d"},
 ]
 wemake-python-styleguide = [
     {file = "wemake-python-styleguide-0.16.1.tar.gz", hash = "sha256:4fcd78dd55732679b5fc8bc37fd7e04bbaa5cdc1b1a829ad265e8f6b0d853cf6"},
