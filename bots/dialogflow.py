@@ -3,7 +3,7 @@
 import json
 import os
 import re
-
+from collections.abc import Iterable
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 
@@ -105,15 +105,19 @@ def create_intent(
     )
 
 
-def teach_agent():
-    """Script for teaching DialogFlow Agent with intents in JSONs (ru and en)."""
+def teach_agent(intents_paths: Iterable[str]):
+    """Script for teaching DialogFlow Agent with intents in JSONs.
+
+    Args:
+        intents_paths: collection with paths to JSON files.
+    """
     load_dotenv()
     project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
-    for path in INTENTS_PATHS:
+    for path in intents_paths:
         create_intents_from_json(
             project_id, path,
         )
 
 
 if __name__ == '__main__':
-    teach_agent()
+    teach_agent(INTENTS_PATHS)
