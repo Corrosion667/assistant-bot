@@ -4,6 +4,7 @@ import json
 import os
 import re
 from collections.abc import Iterable
+
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 
