@@ -24,11 +24,12 @@ def send_answer(event, vk_session_api):
         session_id=chat_id,
         text=event.text,
     )
-    vk_session_api.messages.send(
-        user_id=chat_id,
-        message=reply_message,
-        random_id=random.randint(1, 1000),  # noqa: S311
-    )
+    if reply_message:
+        vk_session_api.messages.send(
+            user_id=chat_id,
+            message=reply_message,
+            random_id=random.randint(1, 1000),  # noqa: S311
+        )
 
 
 def main():

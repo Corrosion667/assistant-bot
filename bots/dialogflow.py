@@ -19,7 +19,7 @@ INTENTS_PATHS = (
 )
 
 
-def get_intent_answer(project_id: str, session_id: str, text: str) -> str:
+def get_intent_answer(project_id: str, session_id: str, text: str) -> str | None:
     """Get answer from DialogFlow agent for the provided text.
 
     Args:
@@ -28,7 +28,7 @@ def get_intent_answer(project_id: str, session_id: str, text: str) -> str:
         text: message received from user.
 
     Returns:
-        Text response for user.
+        Text response for user or None if message unrecognized.
     """
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
@@ -38,6 +38,8 @@ def get_intent_answer(project_id: str, session_id: str, text: str) -> str:
     response = session_client.detect_intent(
         request={'session': session, 'query_input': query_input},
     )
+    if response.query_result.intent.is_fallback:
+        return None
     return response.query_result.fulfillment_text
 
 

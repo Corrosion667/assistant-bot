@@ -37,7 +37,8 @@ def send_answer(update: Update, context: CallbackContext):
         session_id=chat_id,
         text=update.message.text,
     )
-    update.message.reply_text(reply_message)
+    if reply_message:
+        update.message.reply_text(reply_message)
 
 
 def main():
