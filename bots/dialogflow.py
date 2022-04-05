@@ -20,7 +20,7 @@ INTENTS_PATHS = (
 )
 
 
-def get_intent_answer(project_id: str, session_id: str, text: str) -> Union[str, None]:
+def get_intent_answer(project_id: str, session_id: int, text: str) -> Union[str, None]:
     """Get answer from DialogFlow agent for the provided text.
 
     Args:
