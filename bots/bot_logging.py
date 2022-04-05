@@ -3,19 +3,21 @@
 import logging
 import random
 
+import telegram
+
 
 class TelegramLogsHandler(logging.Handler):
     """Class for handler of logs to send them to TG admin."""
 
-    def __init__(self, tg_bot, admin_chat_id):
+    def __init__(self, telegram_token, admin_chat_id):
         """Initiate handler instance.
 
         Args:
-            tg_bot: instance of telegram bot.
+            telegram_token: bot token from @BotFather in telegram.
             admin_chat_id: id of the admin from @userinfobot to send him notifications.
         """
         super().__init__()
-        self.tg_bot = tg_bot
+        self.tg_bot = telegram.Bot(token=telegram_token)
         self.admin_chat_id = admin_chat_id
 
     def emit(self, record):

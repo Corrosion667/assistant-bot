@@ -7,9 +7,12 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
+from bots.bot_logging import TelegramLogsHandler
 from bots.dialogflow import get_intent_answer
 
 logger = logging.getLogger(__name__)
+
+UNRECOGNISED_MESSAGE_WARNING = 'Got unrecognised message "{0}" from user with id {1}.'
 
 
 def start(update: Update, context: CallbackContext):
@@ -39,16 +42,24 @@ def send_answer(update: Update, context: CallbackContext):
     )
     if reply_message:
         update.message.reply_text(reply_message)
+    else:
+        log_message = UNRECOGNISED_MESSAGE_WARNING.format(
+            update.message.text, chat_id,
+        )
+        logger.warning(log_message)
 
 
 def main():
     """Run the bot as script."""
     logging.basicConfig(
-        format='%(name)s %(asctime)s %(levelname)s: %(message)s',
+        format='TELEGRAM_BOT %(asctime)s %(levelname)s: %(message)s',
         level=logging.INFO,
     )
     load_dotenv()
     telegram_token = os.getenv('TELEGRAM_TOKEN')
+    admin_chat_id = os.getenv('TELEGRAM_ADMIN_ID')
+    telegram_handler = TelegramLogsHandler(telegram_token, admin_chat_id)
+    logger.addHandler(telegram_handler)
     updater = Updater(telegram_token)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('start', start))
