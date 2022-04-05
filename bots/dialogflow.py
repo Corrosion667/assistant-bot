@@ -4,6 +4,7 @@ import json
 import os
 import re
 from collections.abc import Iterable
+from typing import Union
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
@@ -19,7 +20,7 @@ INTENTS_PATHS = (
 )
 
 
-def get_intent_answer(project_id: str, session_id: str, text: str) -> str | None:
+def get_intent_answer(project_id: str, session_id: str, text: str) -> Union[str, None]:
     """Get answer from DialogFlow agent for the provided text.
 
     Args:
