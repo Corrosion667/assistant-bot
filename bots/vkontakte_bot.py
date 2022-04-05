@@ -28,7 +28,7 @@ def send_answer(event, vk_session_api):
         vk_session_api.messages.send(
             user_id=chat_id,
             message=reply_message,
-            random_id=random.randint(1, 1000),  # noqa: S311
+            random_id=random.randint(1, 1000),
         )
 
 
