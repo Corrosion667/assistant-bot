@@ -59,6 +59,7 @@ def main():
     telegram_token = os.getenv('TELEGRAM_TOKEN')
     admin_chat_id = os.getenv('TELEGRAM_ADMIN_ID')
     telegram_handler = TelegramLogsHandler(telegram_token, admin_chat_id)
+    telegram_handler.setLevel(logging.WARNING)
     logger.addHandler(telegram_handler)
     updater = Updater(telegram_token)
     dispatcher = updater.dispatcher
@@ -67,6 +68,7 @@ def main():
         Filters.text & ~Filters.command, send_answer,
     ))
     updater.start_polling()
+    logger.info('Bot started')
     updater.idle()
 
 
