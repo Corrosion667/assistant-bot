@@ -49,6 +49,16 @@ def send_answer(update: Update, context: CallbackContext):
         logger.warning(log_message)
 
 
+def error_handler(update: object, context: CallbackContext):
+    """Log the error which will be sent as telegram message to notify the developer.
+
+    Args:
+        update: incoming update object.
+        context: indicates that this is a callback function.
+    """
+    logger.error(msg='Exception while handling an update:', exc_info=context.error)
+
+
 def main():
     """Run the bot as script."""
     logging.basicConfig(
@@ -58,15 +68,16 @@ def main():
     load_dotenv()
     telegram_token = os.getenv('TELEGRAM_TOKEN')
     admin_chat_id = os.getenv('TELEGRAM_ADMIN_ID')
-    telegram_handler = TelegramLogsHandler(telegram_token, admin_chat_id)
-    telegram_handler.setLevel(logging.WARNING)
-    logger.addHandler(telegram_handler)
+    telegram_logs_handler = TelegramLogsHandler(telegram_token, admin_chat_id)
+    telegram_logs_handler.setLevel(logging.WARNING)
+    logger.addHandler(telegram_logs_handler)
     updater = Updater(telegram_token)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('start', start))
     dispatcher.add_handler(MessageHandler(
         Filters.text & ~Filters.command, send_answer,
     ))
+    dispatcher.add_error_handler(error_handler)
     updater.start_polling()
     logger.info('Bot started')
     updater.idle()
