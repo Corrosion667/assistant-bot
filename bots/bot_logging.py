@@ -9,7 +9,7 @@ import telegram
 class TelegramLogsHandler(logging.Handler):
     """Class for handler of logs to send them to TG admin."""
 
-    def __init__(self, telegram_token, admin_chat_id):
+    def __init__(self, telegram_token: str, admin_chat_id: str):
         """Initiate handler instance.
 
         Args:
@@ -20,7 +20,7 @@ class TelegramLogsHandler(logging.Handler):
         self.tg_bot = telegram.Bot(token=telegram_token)
         self.admin_chat_id = admin_chat_id
 
-    def emit(self, record):
+    def emit(self, record: logging.LogRecord):
         """Send log record to telegram chat.
 
         Args:
