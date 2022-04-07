@@ -4,6 +4,7 @@ import logging
 import random
 
 import telegram
+from vk_api.vk_api import VkApiMethod
 
 UNRECOGNISED_MESSAGE_WARNING = 'Got unrecognised message "{0}" from user with id {1}.'
 
@@ -35,18 +36,18 @@ class TelegramLogsHandler(logging.Handler):
 class VkontakteLogsHandler(logging.Handler):
     """Class for handler of logs to send them to VK."""
 
-    def __init__(self, vk_session_api, admin_chat_id):
+    def __init__(self, vk_session_api: VkApiMethod, admin_chat_id: str):
         """Initiate handler instance.
 
         Args:
-            vk_session_api: instance of VK session api.
+            vk_session_api: instance of VK Api Method.
             admin_chat_id: id of the admin in VK.com to send him notifications.
         """
         super().__init__()
         self.vk_session_api = vk_session_api
         self.admin_chat_id = admin_chat_id
 
-    def emit(self, record):
+    def emit(self, record: logging.LogRecord):
         """Send log record to VK chat.
 
         Args:
