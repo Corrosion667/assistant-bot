@@ -86,7 +86,6 @@ def main():
             )
             logger.error(error_message)
             time.sleep(UNEXPECTED_ERROR_TIMEOUT)
-            continue
 
 
 if __name__ == '__main__':
