@@ -823,7 +823,7 @@ typing_extensions = ">=3.6,<5.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "8eff3d2234c9993a0e93c5ab0094743046a456c4ce0fd6de5681127f83d121c4"
+content-hash = "266e5f13cbc8c124ac0a441bc1b7e7d79bba0dde7a678f1e60b4292951b78ed7"
 
 [metadata.files]
 apscheduler = [

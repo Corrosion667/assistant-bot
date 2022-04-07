@@ -11,7 +11,7 @@ python-telegram-bot = "^13.11"
 google-cloud-dialogflow = "^2.13.0"
 vk-api = "^11.9.7"
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
 isort = "^5.10.1"
 wemake-python-styleguide = "^0.16.1"
