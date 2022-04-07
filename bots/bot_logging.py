@@ -4,6 +4,7 @@ import logging
 import random
 
 import telegram
+from requests.exceptions import ReadTimeout
 from vk_api.vk_api import VkApiMethod
 
 UNRECOGNISED_MESSAGE_WARNING = 'Got unrecognised message "{0}" from user with id {1}.'
@@ -30,7 +31,11 @@ class TelegramLogsHandler(logging.Handler):
             record: text log to be sent.
         """
         log_entry = self.format(record)
-        self.tg_bot.send_message(chat_id=self.admin_chat_id, text=log_entry)
+        # do not try to send logs when connection lost
+        try:
+            self.tg_bot.send_message(chat_id=self.admin_chat_id, text=log_entry)
+        except telegram.error.NetworkError:
+            pass
 
 
 class VkontakteLogsHandler(logging.Handler):
@@ -54,11 +59,15 @@ class VkontakteLogsHandler(logging.Handler):
             record: text log to be sent.
         """
         log_entry = self.format(record)
-        self.vk_api_method.messages.send(
-            user_id=self.admin_chat_id,
-            message=log_entry,
-            random_id=random.randint(1, 1000),
-        )
+        # do not try to send logs when connection lost
+        try:
+            self.vk_api_method.messages.send(
+                user_id=self.admin_chat_id,
+                message=log_entry,
+                random_id=random.randint(1, 1000),
+            )
+        except ReadTimeout:
+            pass
 
 
 def log_unrecognised_message(logger: logging.Logger, incoming_message: str, chat_id: int):
