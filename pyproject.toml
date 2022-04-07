@@ -3,6 +3,9 @@ name = "assistant-bot"
 version = "0.1.0"
 description = ""
 authors = ["Artem Nechai <lenikol95@mail.ru>"]
+packages = [
+  { include = "bots" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
