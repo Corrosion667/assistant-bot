@@ -68,7 +68,6 @@ def create_intents_from_json(project_id: str, file_path: str):
     with open(file_path) as parsed_json:
         intents = json.load(parsed_json)
     for intent in intents.keys():
-        language = detect_language(text=intent)
         training_phrases = intents.get(intent).get('questions')
         answers = intents.get(intent).get('answers')
         create_intent(
@@ -76,12 +75,11 @@ def create_intents_from_json(project_id: str, file_path: str):
             display_name=intent,
             training_phrases_parts=training_phrases,
             answers=answers,
-            language=language,
         )
 
 
 def create_intent(
-    project_id: str, display_name: str, training_phrases_parts: list, answers: list, language: str,
+    project_id: str, display_name: str, training_phrases_parts: list, answers: list,
 ):
     """Create DialogFlow agent intent with the given parameters.
 
@@ -90,7 +88,6 @@ def create_intent(
         display_name: name of the intent.
         training_phrases_parts: phrases you can expect from users, that will trigger the intent.
         answers: phrases which agent will deliver to user in response.
-        language: Language code which is russian or english
     """
     intents_client = dialogflow.IntentsClient()
     parent = dialogflow.AgentsClient.agent_path(project_id)
@@ -104,6 +101,7 @@ def create_intent(
     intent = dialogflow.Intent(
         display_name=display_name, training_phrases=training_phrases, messages=[message],
     )
+    language = detect_language(text=display_name)
     intents_client.create_intent(
         parent=parent, intent=intent, language_code=language,
     )
