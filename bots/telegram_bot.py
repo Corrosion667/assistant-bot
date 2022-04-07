@@ -79,7 +79,7 @@ def main():
     ))
     dispatcher.add_error_handler(error_handler)
     updater.start_polling()
-    logger.info('Bot started')
+    logger.info('Bot started.')
     updater.idle()
 
 
