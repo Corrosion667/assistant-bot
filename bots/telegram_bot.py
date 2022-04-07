@@ -35,16 +35,17 @@ def send_answer(update: Update, context: CallbackContext):
     """
     project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
     chat_id = update.message.chat_id
+    incoming_message = update.message.text
     reply_message = get_intent_answer(
         project_id=project_id,
         session_id=chat_id,
-        text=update.message.text,
+        text=incoming_message,
     )
     if reply_message:
         update.message.reply_text(reply_message)
     else:
         log_message = UNRECOGNISED_MESSAGE_WARNING.format(
-            update.message.text, chat_id,
+            incoming_message, chat_id,
         )
         logger.warning(log_message)
 
