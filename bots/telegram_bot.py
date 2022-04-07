@@ -7,12 +7,10 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
-from bots.bot_logging import TelegramLogsHandler
+from bots.bot_logging import TelegramLogsHandler, log_unrecognised_message
 from bots.dialogflow import get_intent_answer
 
 logger = logging.getLogger(__name__)
-
-UNRECOGNISED_MESSAGE_WARNING = 'Got unrecognised message "{0}" from user with id {1}.'
 
 
 def start(update: Update, context: CallbackContext):
@@ -44,10 +42,11 @@ def send_answer(update: Update, context: CallbackContext):
     if reply_message:
         update.message.reply_text(reply_message)
     else:
-        log_message = UNRECOGNISED_MESSAGE_WARNING.format(
-            incoming_message, chat_id,
+        log_unrecognised_message(
+            logger=logger,
+            incoming_message=incoming_message,
+            chat_id=chat_id,
         )
-        logger.warning(log_message)
 
 
 def error_handler(update: object, context: CallbackContext):

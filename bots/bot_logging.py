@@ -5,6 +5,8 @@ import random
 
 import telegram
 
+UNRECOGNISED_MESSAGE_WARNING = 'Got unrecognised message "{0}" from user with id {1}.'
+
 
 class TelegramLogsHandler(logging.Handler):
     """Class for handler of logs to send them to TG admin."""
@@ -56,3 +58,18 @@ class VkontakteLogsHandler(logging.Handler):
             message=log_entry,
             random_id=random.randint(1, 1000),
         )
+
+
+def log_unrecognised_message(logger: logging.Logger, incoming_message: str, chat_id: int):
+    """Create log about receiving unrecognised message from the specific user.
+
+    Args:
+        logger: instance of Logger class.
+        incoming_message: unrecognised message received from user.
+        chat_id: id of the user in Telegram or Vkontakte which sent the message.
+
+    """
+    log_message = UNRECOGNISED_MESSAGE_WARNING.format(
+        incoming_message, chat_id,
+    )
+    logger.warning(log_message)
