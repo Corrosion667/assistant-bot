@@ -69,7 +69,10 @@ def create_intents_from_json(project_id: str, file_path: str):
     with open(file_path) as parsed_json:
         intents = json.load(parsed_json)
     for intent in intents.keys():
-        current_intent_id = _get_intent_ids(project_id=project_id, display_name=intent)[0]
+        try:
+            current_intent_id = _get_intent_ids(project_id=project_id, display_name=intent)[0]
+        except IndexError:
+            current_intent_id = None
         if current_intent_id:
             delete_intent(project_id=project_id, intent_id=current_intent_id)
         training_phrases = intents.get(intent).get('questions')
