@@ -8,7 +8,7 @@ from typing import Union
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
-from samples.snippets.intent_management import delete_intent, _get_intent_ids
+from samples.snippets.intent_management import _get_intent_ids, delete_intent
 
 RUSSIAN_LANGUAGE_CODE = 'ru'
 ENGLISH_LANGUAGE_CODE = 'en'
