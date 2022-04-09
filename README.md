@@ -67,12 +67,12 @@ make full-install
 4. Run the bots: `make run-tg` for **telegram** bot and `make run-vk` for **vkontakte** bot.
 
 ## Teaching the agent
-You can easily create new training phrases for bot using script built inside the project.
-Intents in the project are stored here:   
++ You can easily create new training phrases for bot using script built inside the project.
++ Intents in the project are stored here:   
 `bots/intents/english.json` for English;
 `bots/intents/russian.json` for Russian.  
-Configure them as you want and run `make teach-agent`   
-It will create new intents and override intents if they already exist at your DialogFlow agent automatically.
++ Configure them as you want and run `make teach-agent`   
++ It will create new intents and override intents if they already exist at your DialogFlow agent automatically.
 
 
 ## Demonstration
