@@ -13,3 +13,6 @@ run-tg:
 
 run-vk:
 	poetry run vk
+
+teach-agent:
+	poetry run teach-agent

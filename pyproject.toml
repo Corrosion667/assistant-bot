@@ -22,6 +22,7 @@ wemake-python-styleguide = "^0.16.1"
 [tool.poetry.scripts]
 tg = "bots.telegram_bot:main"
 vk = "bots.vkontakte_bot:main"
+teach-agent = "bots.dialogflow:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

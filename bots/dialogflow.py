@@ -128,5 +128,6 @@ def teach_agent(intents_paths: Iterable[str]):
         )
 
 
-if __name__ == '__main__':
+def main():
+    """Run the script of agent teaching."""
     teach_agent(INTENTS_PATHS)
