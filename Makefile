@@ -7,3 +7,9 @@ full-install:
 
 lint:
 	poetry run flake8 bots
+
+run-tg:
+	poetry run tg
+
+run-vk:
+	poetry run vk
