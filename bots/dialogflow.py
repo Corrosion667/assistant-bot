@@ -8,6 +8,7 @@ from typing import Union
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
+from samples.snippets.intent_management import delete_intent, _get_intent_ids
 
 RUSSIAN_LANGUAGE_CODE = 'ru'
 ENGLISH_LANGUAGE_CODE = 'en'
@@ -59,7 +60,7 @@ def detect_language(text: str) -> str:
 
 
 def create_intents_from_json(project_id: str, file_path: str):
-    """Create intents for DialogFlow agent from JSON file with intents.
+    """Create or override intents for DialogFlow agent from JSON file with intents.
 
     Args:
         project_id: google project id for DialogFlow agent.
@@ -68,6 +69,9 @@ def create_intents_from_json(project_id: str, file_path: str):
     with open(file_path) as parsed_json:
         intents = json.load(parsed_json)
     for intent in intents.keys():
+        current_intent_id = _get_intent_ids(project_id=project_id, display_name=intent)[0]
+        if current_intent_id:
+            delete_intent(project_id=project_id, intent_id=current_intent_id)
         training_phrases = intents.get(intent).get('questions')
         answers = intents.get(intent).get('answers')
         create_intent(
