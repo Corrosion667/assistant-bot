@@ -76,3 +76,7 @@ make full-install
 
 
 ## Demonstration
+
++ Here is how the bot works in Vkontakte:
+![GIF](vkontakte.gif)
+
