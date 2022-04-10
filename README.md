@@ -77,8 +77,11 @@ make full-install
 
 ## Demonstration
 
-+ Here is how the bot works in Vkontakte:
++ **Here is how the bot works in Vkontakte:**   
+
 ![GIF](vkontakte.gif)
 &nbsp;
-+ And here is Telegram:
+&nbsp;
++ **And here is Telegram:**   
+
 ![GIF](telegram.gif)
