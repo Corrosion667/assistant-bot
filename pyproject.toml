@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "assistant-bot"
 version = "0.1.0"
-description = ""
+description = "Assistant bot facilitates the work of the first line of support by answering frequently asked questions in the chat."
 authors = ["Artem Nechai <lenikol95@mail.ru>"]
 packages = [
   { include = "bots" },

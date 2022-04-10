@@ -41,7 +41,7 @@ Bot can answer questions on the following **topics**:
 5. Create **JSON key** for Google cloud (here is the <a href="https://cloud.google.com/docs/authentication/getting-started">guide</a>).
 
 #### *Installation*
-1. clone the repository:
+1. Clone the repository:
 ```bash
 git clone https://github.com/Corrosion667/assistant-bot.git
 ```
@@ -69,9 +69,9 @@ make full-install
 ## Teaching the agent
 + You can easily create new training phrases for bot using script built inside the project.
 + Intents in the project are stored here:   
-`bots/intents/english.json` for English;
+`bots/intents/english.json` for English;   
 `bots/intents/russian.json` for Russian.  
-+ Configure them as you want and run `make teach-agent`   
++ Configure them as you want and run `make teach-agent`  
 + It will create new intents and override intents if they already exist at your DialogFlow agent automatically.
 
 
