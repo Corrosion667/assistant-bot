@@ -79,4 +79,6 @@ make full-install
 
 + Here is how the bot works in Vkontakte:
 ![GIF](vkontakte.gif)
-
+&nbsp;
++ And here is Telegram:
+![GIF](telegram.gif)
