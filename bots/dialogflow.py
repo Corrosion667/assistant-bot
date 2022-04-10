@@ -8,7 +8,7 @@ from typing import Union
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
-from samples.snippets.intent_management import _get_intent_ids, delete_intent
+from samples.snippets.intent_management import delete_intent
 
 RUSSIAN_LANGUAGE_CODE = 'ru'
 ENGLISH_LANGUAGE_CODE = 'en'
@@ -69,10 +69,7 @@ def create_intents_from_json(project_id: str, file_path: str):
     with open(file_path) as parsed_json:
         intents = json.load(parsed_json)
     for intent in intents.keys():
-        try:
-            current_intent_id = _get_intent_ids(project_id=project_id, display_name=intent)[0]
-        except IndexError:
-            current_intent_id = None
+        current_intent_id = get_intent_id(project_id=project_id, display_name=intent)
         if current_intent_id:
             delete_intent(project_id=project_id, intent_id=current_intent_id)
         training_phrases = intents.get(intent).get('questions')
@@ -83,6 +80,29 @@ def create_intents_from_json(project_id: str, file_path: str):
             training_phrases_parts=training_phrases,
             answers=answers,
         )
+
+
+def get_intent_id(project_id: str, display_name: str) -> Union[str, None]:
+    """Get id of intent from DialogFlow agent by the name of intent.
+
+    Args:
+        project_id: google project id for DialogFlow agent.
+        display_name: name of the intent.
+
+    Returns:
+        ID of intent from DialogFlow agent or None if it doesn't exist.
+    """
+    intents_client = dialogflow.IntentsClient()
+    parent_link = dialogflow.AgentsClient.agent_path(project_id)
+    intents = intents_client.list_intents(request={'parent': parent_link})
+    intent_names = [
+        intent.name for intent in intents if intent.display_name == display_name
+    ]
+    try:
+        intent_id = [intent_name.split('/')[-1] for intent_name in intent_names][0]
+    except IndexError:
+        intent_id = None
+    return intent_id
 
 
 def create_intent(
@@ -97,7 +117,7 @@ def create_intent(
         answers: phrases which agent will deliver to user in response.
     """
     intents_client = dialogflow.IntentsClient()
-    parent = dialogflow.AgentsClient.agent_path(project_id)
+    parent_link = dialogflow.AgentsClient.agent_path(project_id)
     training_phrases = []
     for training_phrases_part in training_phrases_parts:
         part = dialogflow.Intent.TrainingPhrase.Part(text=training_phrases_part)
@@ -110,7 +130,7 @@ def create_intent(
     )
     language = detect_language(text=display_name)
     intents_client.create_intent(
-        parent=parent, intent=intent, language_code=language,
+        parent=parent_link, intent=intent, language_code=language,
     )
 
 
