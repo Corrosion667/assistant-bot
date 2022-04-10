@@ -29,7 +29,7 @@ Bot can answer questions on the following **topics**:
 | Forgot password               | Забыл пароль                     | 
 | Delete account                | Удаление аккаунта                | 
 | Questions from banned users   | Вопросы от забаненных            | 
-| Questions from conterpaties   | Вопросы от действующих партнёров | 
+| Questions from counterparties   | Вопросы от действующих партнёров | 
 
 ## Running
 
