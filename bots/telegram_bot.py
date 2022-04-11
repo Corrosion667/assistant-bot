@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
-from bots.bot_logging import TelegramLogsHandler, UNRECOGNISED_MESSAGE_WARNING
+from bots.bot_logging import UNRECOGNISED_MESSAGE_WARNING, TelegramLogsHandler
 from bots.dialogflow import get_intent_response
 
 logger = logging.getLogger(__name__)
