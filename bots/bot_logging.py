@@ -39,15 +39,15 @@ class TelegramLogsHandler(logging.Handler):
 class VkontakteLogsHandler(logging.Handler):
     """Class for handler of logs to send them to VK."""
 
-    def __init__(self, vk_api_method: VkApiMethod, admin_chat_id: str):
+    def __init__(self, vk_api_connector: VkApiMethod, admin_chat_id: str):
         """Initiate handler instance.
 
         Args:
-            vk_api_method: instance of VK Api Method.
+            vk_api_connector: instance of VK Api Method to interact with VKApi methods.
             admin_chat_id: id of the admin in VK.com to send him notifications.
         """
         super().__init__()
-        self.vk_api_method = vk_api_method
+        self.vk_api_connector = vk_api_connector
         self.admin_chat_id = admin_chat_id
 
     def emit(self, record: logging.LogRecord):
@@ -59,7 +59,7 @@ class VkontakteLogsHandler(logging.Handler):
         log_entry = self.format(record)
         # do not try to send logs when connection lost
         with suppress(ReadTimeout):
-            self.vk_api_method.messages.send(
+            self.vk_api_connector.messages.send(
                 user_id=self.admin_chat_id,
                 message=log_entry,
                 random_id=random.randint(1, 1000),

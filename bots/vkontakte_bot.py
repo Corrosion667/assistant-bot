@@ -71,15 +71,15 @@ def main():
     vk_token = os.getenv('VKONTAKTE_TOKEN')
     admin_chat_id = os.getenv('VKONTAKTE_ADMIN_ID')
     vk_api = VkApi(token=vk_token)
-    vk_api_method = vk_api.get_api()
-    vkontakte_logs_handler = VkontakteLogsHandler(vk_api_method, admin_chat_id)
+    vk_api_connector = vk_api.get_api()
+    vkontakte_logs_handler = VkontakteLogsHandler(vk_api_connector, admin_chat_id)
     vkontakte_logs_handler.setLevel(logging.WARNING)
     logger.addHandler(vkontakte_logs_handler)
     vk_long_poll = VkLongPoll(vk_api)
     logger.info('Bot started.')
     while True:
         try:
-            interact_longpoll(vk_long_poll=vk_long_poll, vk_api_method=vk_api_method)
+            interact_longpoll(vk_long_poll=vk_long_poll, vk_api_method=vk_api_connector)
         except Exception as exc:
             error_message = UNEXPECTED_ERROR_LOG.format(
                 exception=exc, timeout=UNEXPECTED_ERROR_TIMEOUT,
