@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
-from bots.bot_logging import TelegramLogsHandler, log_unrecognised_message
-from bots.dialogflow import get_intent_answer
+from bots.bot_logging import TelegramLogsHandler, UNRECOGNISED_MESSAGE_WARNING
+from bots.dialogflow import get_intent_response
 
 logger = logging.getLogger(__name__)
 
@@ -34,19 +34,18 @@ def send_answer(update: Update, context: CallbackContext):
     project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
     chat_id = update.message.chat_id
     incoming_message = update.message.text
-    reply_message = get_intent_answer(
+    dialogflow_response = get_intent_response(
         project_id=project_id,
         session_id=chat_id,
         text=incoming_message,
     )
-    if reply_message:
-        update.message.reply_text(reply_message)
-    else:
-        log_unrecognised_message(
-            logger=logger,
-            incoming_message=incoming_message,
-            chat_id=chat_id,
+    reply_message = dialogflow_response.query_result.fulfillment_text
+    update.message.reply_text(reply_message)
+    if dialogflow_response.query_result.intent.is_fallback:
+        log_message = UNRECOGNISED_MESSAGE_WARNING.format(
+            incoming_message, chat_id,
         )
+        logger.warning(log_message)
 
 
 def error_handler(update: object, context: CallbackContext):

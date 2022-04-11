@@ -10,8 +10,8 @@ from vk_api import VkApi
 from vk_api.longpoll import Event, VkEventType, VkLongPoll
 from vk_api.vk_api import VkApiMethod
 
-from bots.bot_logging import VkontakteLogsHandler, log_unrecognised_message
-from bots.dialogflow import get_intent_answer
+from bots.bot_logging import UNRECOGNISED_MESSAGE_WARNING, VkontakteLogsHandler
+from bots.dialogflow import get_intent_response
 
 UNEXPECTED_ERROR_TIMEOUT = 100
 
@@ -30,22 +30,21 @@ def send_answer(event: Event, vk_api_method: VkApiMethod):
     project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
     chat_id = event.user_id
     incoming_message = event.text
-    reply_message = get_intent_answer(
+    dialogflow_response = get_intent_response(
         project_id=project_id,
         session_id=chat_id,
         text=incoming_message,
     )
-    if reply_message:
+    if dialogflow_response.query_result.intent.is_fallback:
+        log_message = UNRECOGNISED_MESSAGE_WARNING.format(
+            incoming_message, chat_id,
+        )
+        logger.warning(log_message)
+    else:
         vk_api_method.messages.send(
             user_id=chat_id,
-            message=reply_message,
+            message=dialogflow_response.query_result.fulfillment_text,
             random_id=random.randint(1, 1000),
-        )
-    else:
-        log_unrecognised_message(
-            logger=logger,
-            incoming_message=incoming_message,
-            chat_id=chat_id,
         )
 
 

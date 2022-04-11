@@ -8,6 +8,7 @@ from typing import Union
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
+from google.cloud.dialogflow_v2.types.session import DetectIntentResponse
 from samples.snippets.intent_management import delete_intent
 
 RUSSIAN_LANGUAGE_CODE = 'ru'
@@ -21,8 +22,8 @@ INTENTS_PATHS = (
 )
 
 
-def get_intent_answer(project_id: str, session_id: int, text: str) -> Union[str, None]:
-    """Get answer from DialogFlow agent for the provided text.
+def get_intent_response(project_id: str, session_id: int, text: str) -> DetectIntentResponse:
+    """Get response from DialogFlow agent for the provided text.
 
     Args:
         project_id: google project id for DialogFlow agent.
@@ -30,19 +31,16 @@ def get_intent_answer(project_id: str, session_id: int, text: str) -> Union[str,
         text: message received from user.
 
     Returns:
-        Text response for user or None if message unrecognized.
+        Response from DialogFlow about user's message.
     """
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     language = detect_language(text=text)
     text_input = dialogflow.TextInput(text=text, language_code=language)
     query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
+    return session_client.detect_intent(
         request={'session': session, 'query_input': query_input},
     )
-    if response.query_result.intent.is_fallback:
-        return None
-    return response.query_result.fulfillment_text
 
 
 def detect_language(text: str) -> str:
