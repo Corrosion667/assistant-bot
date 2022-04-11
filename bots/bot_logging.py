@@ -2,6 +2,7 @@
 
 import logging
 import random
+from contextlib import suppress
 
 import telegram
 from requests.exceptions import ReadTimeout
@@ -31,11 +32,8 @@ class TelegramLogsHandler(logging.Handler):
             record: text log to be sent.
         """
         log_entry = self.format(record)
-        # do not try to send logs when connection lost
-        try:
+        with suppress(telegram.error.NetworkError):
             self.tg_bot.send_message(chat_id=self.admin_chat_id, text=log_entry)
-        except telegram.error.NetworkError:
-            pass
 
 
 class VkontakteLogsHandler(logging.Handler):
@@ -60,14 +58,12 @@ class VkontakteLogsHandler(logging.Handler):
         """
         log_entry = self.format(record)
         # do not try to send logs when connection lost
-        try:
+        with suppress(ReadTimeout):
             self.vk_api_method.messages.send(
                 user_id=self.admin_chat_id,
                 message=log_entry,
                 random_id=random.randint(1, 1000),
             )
-        except ReadTimeout:
-            pass
 
 
 def log_unrecognised_message(logger: logging.Logger, incoming_message: str, chat_id: int):
