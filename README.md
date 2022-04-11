@@ -10,7 +10,9 @@
 
 + ***Assistant bot*** facilitates the work of the first line of support by answering frequently asked questions in the chat using **DialogFlow** technology from Google.    
 + It supports **Russian** and **English** languages and can be deployed in **Telegram** and **Vkontakte**.   
-+ Bot will also send notification to admin user if unrecognised message received, to let human take control of the dialogue with the client. In case of error, notification will be also sent.
++ In Telegram bot replies to unrecognised messages with a phrase-plug, because there is no system of administrators in TG as in VK. In Vkontakte bot doesn't reply to unrecognised messages.
++ Bot will also send notification to admin user if unrecognised message received to let human take control of the dialogue with the client or improve bot's vocabulary.
++ In case of error, notification will be also sent.
 
 ## Deployment
 
