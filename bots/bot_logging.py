@@ -58,7 +58,7 @@ class VkontakteLogsHandler(logging.Handler):
         """
         log_entry = self.format(record)
         # do not try to send logs when connection lost
-        with suppress(ReadTimeout):
+        with suppress(ReadTimeout, ConnectionError):
             self.vk_api_connector.messages.send(
                 user_id=self.admin_chat_id,
                 message=log_entry,
